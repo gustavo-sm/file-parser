@@ -6,7 +6,13 @@ const File = (filePath) =>{
     let fileContent = '';
 
     function read(){
-        fileContent = fs.readFileSync(filePath, 'utf-8');
+    
+        if (fs.existsSync(filePath)){
+            fileContent = fs.readFileSync(filePath, 'utf-8');
+            return;
+        }
+        throw new Error('Arquivo não encontrado!');
+    
     }
 
     function parse(){
