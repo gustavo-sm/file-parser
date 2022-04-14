@@ -15,17 +15,25 @@ const File = (filePath) =>{
     
     }
 
+    function write(){
+
+    }
+
     function parse(){
+        let parsedFileContent ='';
         fileContent.split(/\\n/).forEach(line =>{
-            consoleMessage.info(`${line.replace(/\\t|\\(?=.*)/g,'')}`);
+            parsedFileContent+= line.replace(/\\t(?=.*)/g, '') + '\r\n';
+            consoleMessage.info(`${line.replace(/\\t(?=.*)/g,'')}`);
         });
+        fs.writeFileSync('parsed.js', parsedFileContent);
     }
 
     function unparse(){
         let stringfiedFile = '';
         fileContent.split(/\r\n/g).forEach(line =>{
-            stringfiedFile+=line+'\\n';
+            stringfiedFile+=line+' \\n';
         });
+        fs.writeFileSync('unparsed.txt', stringfiedFile);
 
         consoleMessage.info(stringfiedFile);
     }
