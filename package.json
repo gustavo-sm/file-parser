@@ -1,0 +1,16 @@
+{
+  "name": "fileparser",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "parser": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gus-sm",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.1"
+  }
+}
