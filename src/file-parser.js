@@ -17,10 +17,19 @@ const File = (filePath) =>{
 
     function parse(){
         fileContent.split(/\\n/).forEach(line =>{
-            consoleMessage.info(`${line.replace(/\\(?=.*)/g,'')}`);
+            consoleMessage.info(`${line.replace(/\\t|\\(?=.*)/g,'')}`);
         });
     }
-    return {read, parse};
+
+    function unparse(){
+        let stringfiedFile = '';
+        fileContent.split(/\r\n/g).forEach(line =>{
+            stringfiedFile+=line+'\\n';
+        });
+
+        consoleMessage.info(stringfiedFile);
+    }
+    return {read, parse, unparse};
 }
 
 
