@@ -1,5 +1,6 @@
 import fs from 'fs';
 import consoleMessage from '../utils/console-message.js';
+import config from '../config/config.js';
 
 const File = (filePath) =>{
 
@@ -15,17 +16,22 @@ const File = (filePath) =>{
     
     }
 
-    function write(){
+    function write(destPath, content){
 
+        if(!fs.existsSync(destPath.split('/')[1])){
+            fs.mkdirSync(destPath.split('/')[1]);
+        }
+        fs.writeFileSync(destPath, content);
     }
 
     function parse(){
+        console.log(config);
         let parsedFileContent ='';
         fileContent.split(/\\n/).forEach(line =>{
             parsedFileContent+= line.replace(/\\t(?=.*)/g, '') + '\r\n';
             consoleMessage.info(`${line.replace(/\\t(?=.*)/g,'')}`);
         });
-        fs.writeFileSync('parsed.js', parsedFileContent);
+        write(`${config.DEST_PATH}/${config.PARSED_FILENAME}`, parsedFileContent);
     }
 
     function unparse(){
@@ -33,7 +39,7 @@ const File = (filePath) =>{
         fileContent.split(/\r\n/g).forEach(line =>{
             stringfiedFile+=line+' \\n';
         });
-        fs.writeFileSync('unparsed.txt', stringfiedFile);
+        write(`${config.DEST_PATH}/${config.UNPARSED_FILENAME}`, stringfiedFile);
 
         consoleMessage.info(stringfiedFile);
     }
