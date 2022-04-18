@@ -1,19 +1,21 @@
-import { File } from  './src/file-parser.js';
+import { File } from  './src/File.js';
+import { Parser } from './src/Parser.js';
 import consoleMessage from './utils/console-message.js';
 
 const filePath = process.argv[2], 
 option = process.argv[3] || 'p';
 
 try{
-    const file = File(filePath);
-    file.read();
+    const file = File(filePath),
+        content = file.read(),
+        parser = Parser(file);
 
     const mode = {
         p(){
-            file.parse();
+            parser.parse(content);
         },
         u(){
-            file.unparse();
+            parser.unparse(content);
         }
     };
     mode[option]();
