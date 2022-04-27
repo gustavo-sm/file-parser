@@ -15,7 +15,10 @@ const Parser = (File) => {
     function unparse(fileContent){
         let stringfiedFile = '';
         fileContent.split(/\r\n/g).forEach(line =>{
-            stringfiedFile+=line+' \\n';
+            //if(line.includes(/^.*$/))
+            let checkLine = line;
+            if(checkLine.replace(/\s/g, ''))
+                stringfiedFile+=line+'\\n';
         });
         File.write(`${config.DEST_PATH}/${config.UNPARSED_FILENAME}`, stringfiedFile);
 
