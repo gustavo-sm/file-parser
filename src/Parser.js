@@ -1,30 +1,47 @@
 import consoleMessage from '../utils/console-message.js';
-import config from '../config/config.js';
 
-const Parser = (File) => {
+class Parser{
     
-    function parse(fileContent){
-        let parsedFileContent ='';
-        fileContent.split(/\\n/).forEach(line =>{
-            parsedFileContent+= line.replace(/\\t(?=.*)/g, '') + '\r\n';
-            consoleMessage.info(`${line.replace(/\\t(?=.*)/g,'')}`);
-        });
-        File.write(`${config.DEST_PATH}/${config.PARSED_FILENAME}`, parsedFileContent);
+    constructor(fileContent = ''){
+        this.fileContent = fileContent;
+        this.parsedFileContent = '';
+        this.unparsedFileContent = '';
     }
 
-    function unparse(fileContent){
-        let stringfiedFile = '';
-        fileContent.split(/\r\n/g).forEach(line =>{
-            //if(line.includes(/^.*$/))
-            let checkLine = line;
-            if(checkLine.replace(/\s/g, ''))
-                stringfiedFile+=line+'\\n';
-        });
-        File.write(`${config.DEST_PATH}/${config.UNPARSED_FILENAME}`, stringfiedFile);
+    parse(){
+        try{
+            this.fileContent.split(/\\n/).forEach(line =>{
+                this.parsedFileContent+= line.replace(/\\t(?=.*)/g, '') + '\r\n';
+                consoleMessage.info(`${line.replace(/\\t(?=.*)/g,'')}`);
+            });           
 
-        consoleMessage.info(stringfiedFile);
+        } catch(err){
+            throw new Error(err);
+        }
     }
-    return {parse, unparse};
+
+    unparse(){
+        try{
+            this.fileContent.split(/\r\n/g).forEach(line =>{
+                if(line.replace(/\s/g, ''))
+                    this.unparsedFileContent+=line+'\\n';
+            });
+    
+            consoleMessage.info(this.unparsedFileContent);
+
+        } catch(err){
+            throw new Error(err);
+        }
+    }
+
+    getParsedContent(){
+        return this.parsedFileContent;
+    }
+
+    getUnparsedContent(){
+        return this.unparsedFileContent;
+    }
+
 }
 
-export { Parser };
+export default Parser;
