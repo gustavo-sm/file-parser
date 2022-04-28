@@ -4,4 +4,4 @@
 
 ### Instruções:
 - ```npm install``` para baixar as dependências;
-- ```npm run parser``` _caminho_absoluto_arquivo_ ```p``` (para parse) ou ```u``` (para unparse)
+- ```npm run parser``` _```caminho do arquivo a ser lido```_ ```p``` (para parse) ou ```u``` (para unparse)
