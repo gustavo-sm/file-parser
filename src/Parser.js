@@ -22,6 +22,7 @@ class Parser{
 
     unparse(){
         try{
+
             this.fileContent.split(/\r\n/g).forEach(line =>{
                 if(line.replace(/\s/g, ''))
                     this.unparsedFileContent+=line+'\\n';
