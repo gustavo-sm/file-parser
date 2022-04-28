@@ -1,29 +1,36 @@
 import fs from 'fs';
+import config from '../config/config.js';
 
-const File = (filePath) =>{
+class File {
 
-    let fileContent = '';
-
-    function read(){
-    
-        if (fs.existsSync(filePath)){
-            fileContent = fs.readFileSync(filePath, 'utf-8');
-            return fileContent;
-        }
-        throw new Error('Arquivo não encontrado!');
-    
+    constructor(readPath){
+        this.fileContent = '';
+        this.readPath = readPath;
+        this.writePath = config.DEST_PATH;
     }
 
-    function write(destPath, content){
-
-        if(!fs.existsSync(destPath.split('/')[1])){
-            fs.mkdirSync(destPath.split('/')[1]);
+    read(){
+        if (!fs.existsSync(this.readPath)){
+            throw new Error('Arquivo não encontrado!');
         }
-        fs.writeFileSync(destPath, content);
-    }
-    return {read, write};
-};
+        const fileContent = fs.readFileSync(this.readPath, 'utf-8');
+        this.fileContent = fileContent;
 
-export { File };
+    }
+
+    write(filename, content){
+        if(!fs.existsSync(this.writePath.split('/')[1])){
+            fs.mkdirSync(this.writePath.split('/')[1]);
+        }
+        fs.writeFileSync(`${this.writePath}/${filename}`, content);
+    }
+
+    getFileContent(){
+        return this.fileContent;
+    }
+
+}
+
+export default File;
 
 
