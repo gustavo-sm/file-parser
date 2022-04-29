@@ -3,19 +3,24 @@ import config from '../config/config.js';
 
 class FileOperations{
 
+    constructor(destPath, readPath){
+        this.destPath = destPath;
+        this.readPath = readPath;
+    }
+
     read(path){
-        if (!fs.existsSync(path)){
+        if (!fs.existsSync(this.readPath)){
             throw new Error('Arquivo não encontrado!');
         }
-        return fs.readFileSync(path, 'utf-8');
+        return fs.readFileSync(this.readPath, 'utf-8');
     }
 
     write(filename, content){
-        if(!fs.existsSync(config.DEST_PATH.split('/')[1])){
-            fs.mkdirSync(config.DEST_PATH.split('/')[1]);
+        if(!fs.existsSync(this.destPath.split('/')[1])){
+            fs.mkdirSync(this.destPath.split('/')[1]);
         }
         
-        fs.writeFileSync(`${config.DEST_PATH}/${filename}`, content);
+        fs.writeFileSync(`${this.destPath}/${filename}`, content);
     }
     
 }
