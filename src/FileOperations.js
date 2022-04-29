@@ -1,5 +1,4 @@
 import fs from 'fs';
-import config from '../config/config.js';
 
 class FileOperations{
 
