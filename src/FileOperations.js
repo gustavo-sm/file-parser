@@ -7,7 +7,7 @@ class FileOperations{
         this.readPath = readPath;
     }
 
-    read(path){
+    read(){
         if (!fs.existsSync(this.readPath)){
             throw new Error('Arquivo não encontrado!');
         }
