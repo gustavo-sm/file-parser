@@ -1,6 +1,6 @@
 ## file-parser
 
-> Biblioteca para parse de códigos provenientes de elementos do OCC.
+> Biblioteca para parse de conteúdo de arquivos provenientes do Oracle Commerce Cloud.
 
 ### Instruções:
 - ```npm install``` para baixar as dependências;
