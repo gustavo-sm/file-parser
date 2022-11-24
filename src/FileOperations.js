@@ -2,24 +2,20 @@ import fs from 'fs';
 
 class FileOperations{
 
-    constructor(destPath, readPath){
-        this.destPath = destPath;
-        this.readPath = readPath;
-    }
 
-    read(){
-        if (!fs.existsSync(this.readPath)){
+    static read(readPath){
+        if (!fs.existsSync(readPath)){
             throw new Error('Arquivo não encontrado!');
         }
-        return fs.readFileSync(this.readPath, 'utf-8');
+        return fs.readFileSync(readPath, 'utf-8');
     }
 
-    write(filename, content){
-        if(!fs.existsSync(this.destPath.split('/')[1])){
-            fs.mkdirSync(this.destPath.split('/')[1]);
+    static write(destPath, filename, content){
+        if(!fs.existsSync(destPath.split('/')[1])){
+            fs.mkdirSync(destPath.split('/')[1]);
         }
         
-        fs.writeFileSync(`${this.destPath}/${filename}`, content);
+        fs.writeFileSync(`${destPath}/${filename}`, content);
     }
     
 }

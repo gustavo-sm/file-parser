@@ -1,4 +1,3 @@
-import File from  './src/File.js';
 import Parser from './src/Parser.js';
 import config from './config/config.js';
 import consoleMessage from './utils/console-message.js';
@@ -8,9 +7,8 @@ const filePath = process.argv[2],
 option = process.argv[3] || 'p';
 
 try{
-    const FileOps = new FileOperations(config.DEST_PATH, filePath),
-    file = new File(filePath, FileOps),
-    parser = new Parser(file.extractContent());
+    //const FileOps = new FileOperations(config.DEST_PATH, filePath),
+    const parser = new Parser(FileOperations.read(filePath));
 
     let content = '';
 
@@ -18,12 +16,12 @@ try{
         p(){
             parser.parse();
             content = parser.getParsedContent();
-            FileOps.write(config.PARSED_FILENAME, content);
+            FileOperations.write(config.DEST_PATH, config.PARSED_FILENAME, content);
         },
         u(){
             parser.unparse();
             content = parser.getUnparsedContent();
-            FileOps.write(config.UNPARSED_FILENAME, content);
+            FileOperations.write(config.DEST_PATH, config.UNPARSED_FILENAME, content);
         }
     };
     mode[option]();
