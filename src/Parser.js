@@ -11,9 +11,9 @@ class Parser{
     parse(){
         try{
             this.fileContent.split(/\\n/).forEach(line =>{
-                this.parsedFileContent+= line.replace(/\\t(?=.*)/g, '') + '\r\n';
-                consoleMessage.info(`${line.replace(/\\t(?=.*)/g,'')}`);
-            });           
+                this.parsedFileContent+= line.replace(/\\t(?=.*)/g,'\n\t') + '\n';
+            });
+            consoleMessage.info(`${this.parsedFileContent}`); 
 
         } catch(err){
             throw new Error(err);
