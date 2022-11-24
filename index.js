@@ -7,7 +7,6 @@ const filePath = process.argv[2],
 option = process.argv[3] || 'p';
 
 try{
-    //const FileOps = new FileOperations(config.DEST_PATH, filePath),
     const parser = new Parser(FileOperations.read(filePath));
 
     let content = '';
